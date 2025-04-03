@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unity to WebGL to React Workflow</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@9.3.0/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #3498db;
+            text-align: left;
+            margin: 25px 0 15px 0;
+        }
+        .diagram-container {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+            overflow: auto;
+        }
+        .downloadLink {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 16px;
+            background-color: #2ecc71;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .downloadLink:hover {
+            background-color: #27ae60;
+        }
+        .explanation {
+            text-align: left;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Unity to WebGL to React Integration Workflow</h1>
+        
+        <div class="diagram-container">
+            <div class="mermaid">
+                graph LR
+                    UnityEditor["Unity Editor<br>(Development)"] --> UnityProject["Unity Project"];
+                    UnityProject --> Build["WebGL Export"];
+                    Build --> WebGLBuild["WebGL Build Artifacts<br>(.js, .wasm, .data)"];
+                    WebGLBuild --> ReactUnityWebGL["React Unity WebGL<br>(Integration Library)"];
+                    ReactUnityWebGL --> UnityComponent["Unity Component<br>in React"];
+                    UnityComponent <--> Bridge["Communication Bridge"];
+                    UnityComponent --> ReactApp["React Frontend App"];
+                    ReactApp <--> Supabase["Supabase<br>(DB, Auth, Storage)"];
+                    ReactApp <--> Convai["Convai AI Engine"];
+                    
+                    classDef unity fill:#e6f5d0,stroke:#333,stroke-width:1px;
+                    classDef webgl fill:#d4e6f1,stroke:#333,stroke-width:1px;
+                    classDef react fill:#d4f1f9,stroke:#333,stroke-width:1px;
+                    classDef service fill:#f9e7d2,stroke:#333,stroke-width:1px;
+                    
+                    class UnityEditor,UnityProject unity;
+                    class Build,WebGLBuild webgl;
+                    class ReactUnityWebGL,UnityComponent,Bridge,ReactApp react;
+                    class Supabase,Convai service;
+            </div>
+        </div>
+        
+        <div class="explanation">
+            <h2>Unity to React Workflow Explanation</h2>
+            <ol>
+                <li><strong>Development in Unity:</strong> Game developers create game logic, import assets, and build interactive content in Unity Editor</li>
+                <li><strong>WebGL Export:</strong> Unity project is built/exported to WebGL format, producing HTML, JavaScript, and binary files (.data, .wasm)</li>
+                <li><strong>React Integration:</strong> React Unity WebGL library serves as a wrapper that loads and communicates with the Unity WebGL export</li>
+                <li><strong>Frontend Application:</strong> The React application embeds the Unity WebGL content via the React Unity WebGL wrapper</li>
+                <li><strong>Communication:</strong> Data is passed between React and Unity through a communication bridge (SendMessage/JSLib)</li>
+                <li><strong>External Services:</strong> Both React and Unity can interact with external services like Supabase and Convai</li>
+            </ol>
+            
+            <h2>Key Components</h2>
+            <ul>
+                <li><strong>Unity Editor:</strong> Development environment where the game/interactive content is created</li>
+                <li><strong>WebGL Build:</strong> Exported files that enable Unity content to run in the browser</li>
+                <li><strong>React Unity WebGL:</strong> Library that provides React components to load and interact with Unity WebGL content</li>
+                <li><strong>Communication Bridge:</strong> Methods for passing data between React and Unity (gameObject.SendMessage() from React to Unity, JSLib methods from Unity to React)</li>
+            </ul>
+        </div>
+        
+        <div>
+            <a id="downloadLink" href="#" class="downloadLink" download="unity-workflow.svg">Download Diagram as SVG</a>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'neutral'
+        });
+        
+        // Create downloadable SVG
+        setTimeout(() => {
+            const svgElement = document.querySelector(".mermaid svg");
+            if (svgElement) {
+                const svgData = new XMLSerializer().serializeToString(svgElement);
+                const svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
+                const svgUrl = URL.createObjectURL(svgBlob);
+                document.getElementById('downloadLink').href = svgUrl;
+            }
+        }, 2000);
+    </script>
+</body>
+</html>

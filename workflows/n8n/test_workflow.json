@@ -1,0 +1,61 @@
+[{
+    "id": "test-workflow",
+    "name": "Test Supabase Insert",
+    "active": true,
+    "nodes": [
+        {
+            "parameters": {
+                "path": "test",
+                "httpMethod": "POST",
+                "options": {
+                    "rawBody": true
+                }
+            },
+            "name": "Webhook",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [250, 300]
+        },
+        {
+            "parameters": {
+                "operation": "insert",
+                "tableId": "chat_conversations",
+                "columns": {
+                    "session_id": "={{ $json.body.session_id }}",
+                    "user_input": "={{ $json.body.message }}",
+                    "ai_response": "=Test Response",
+                    "context": "={{ '' }}"
+                }
+            },
+            "name": "Store Conversation",
+            "type": "n8n-nodes-base.supabase",
+            "typeVersion": 1,
+            "position": [450, 300],
+            "credentials": {
+                "supabaseApi": {
+                    "id": "Oooa6C0xTEskKAlL",
+                    "name": "Supabase account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "respondWith": "json",
+                "responseBody": "={{ {success: true, message: 'Data stored successfully'} }}",
+                "options": {}
+            },
+            "name": "Response",
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1,
+            "position": [650, 300]
+        }
+    ],
+    "connections": {
+        "Webhook": {
+            "main": [[{"node": "Store Conversation", "type": "main", "index": 0}]]
+        },
+        "Store Conversation": {
+            "main": [[{"node": "Response", "type": "main", "index": 0}]]
+        }
+    }
+}]

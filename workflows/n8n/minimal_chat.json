@@ -1,0 +1,56 @@
+[{
+    "name": "Minimal Chat Storage",
+    "nodes": [
+        {
+            "parameters": {
+                "path": "chat",
+                "httpMethod": "POST",
+                "options": {
+                    "rawBody": true
+                }
+            },
+            "id": "webhook-node",
+            "name": "Webhook",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [250, 300]
+        },
+        {
+            "parameters": {
+                "operation": "insert",
+                "tableId": "chat_conversations",
+                "columns": {
+                    "session_id": "={{ $json.body.session_id }}",
+                    "user_input": "={{ $json.body.user_input }}",
+                    "ai_response": "=Test Response",
+                    "context": "=''"
+                }
+            },
+            "id": "supabase-node",
+            "name": "Store in Supabase",
+            "type": "n8n-nodes-base.supabase",
+            "typeVersion": 1,
+            "position": [450, 300],
+            "credentials": {
+                "supabaseApi": {
+                    "id": "Oooa6C0xTEskKAlL",
+                    "name": "Supabase account"
+                }
+            }
+        }
+    ],
+    "connections": {
+        "Webhook": {
+            "main": [
+                [
+                    {
+                        "node": "Store in Supabase",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "active": true
+}]

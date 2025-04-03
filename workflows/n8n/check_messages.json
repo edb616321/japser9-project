@@ -1,0 +1,23 @@
+[{
+    "name": "Check Messages",
+    "nodes": [
+        {
+            "parameters": {
+                "operation": "select",
+                "tableId": "chat_conversations",
+                "query": "SELECT * FROM chat_conversations ORDER BY created_at DESC LIMIT 5",
+                "options": {}
+            },
+            "name": "Get Recent Messages",
+            "type": "n8n-nodes-base.supabase",
+            "typeVersion": 1,
+            "position": [300, 300],
+            "credentials": {
+                "supabaseApi": {
+                    "id": "Oooa6C0xTEskKAlL",
+                    "name": "Supabase account"
+                }
+            }
+        }
+    ]
+}]

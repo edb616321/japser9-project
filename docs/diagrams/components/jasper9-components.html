@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jasper9 Components Diagram</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .diagram-container {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+        }
+        .downloadLink {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 16px;
+            background-color: #2ecc71;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .downloadLink:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Jasper9 Components</h1>
+        
+        <div class="diagram-container">
+            <div class="mermaid" id="mermaidDiv">
+                flowchart TD
+                    subgraph Core["Jasper9 Core Components"]
+                        Frontend["React ts, express,<br>tailwind Front End"]
+                    end
+                    
+                    subgraph Components["Integration Components"]
+                        ReactUnity["React Unity WebGL"]
+                        UnityAPI["Unity API"]
+                        Supabase["Supabase"]
+                        Convai["Convai AI Engine"]
+                    end
+                    
+                    Frontend -.-> ReactUnity
+                    Frontend -.-> UnityAPI
+                    Frontend -.-> Supabase
+                    Frontend -.-> Convai
+                    
+                    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
+                    classDef frontendClass fill:#d4f1f9,stroke:#333,stroke-width:1px;
+                    classDef unityClass fill:#e6f5d0,stroke:#333,stroke-width:1px;
+                    classDef supabaseClass fill:#f9e7d2,stroke:#333,stroke-width:1px;
+                    classDef convaiClass fill:#f1d1f0,stroke:#333,stroke-width:1px;
+                    
+                    class Frontend frontendClass;
+                    class ReactUnity,UnityAPI unityClass;
+                    class Supabase supabaseClass;
+                    class Convai convaiClass;
+            </div>
+        </div>
+        
+        <div id="alternateView" class="diagram-container">
+            <div class="mermaid" id="simpleDiagram">
+                flowchart TD
+                    Frontend["React ts, express,<br>tailwind Front End"]
+                    
+                    ReactUnity["React Unity WebGL"]
+                    UnityAPI["Unity API"]
+                    Supabase["Supabase"]
+                    Convai["Convai AI Engine"]
+                    
+                    Frontend --- ReactUnity & UnityAPI & Supabase & Convai
+                    
+                    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
+                    classDef frontendClass fill:#d4f1f9,stroke:#333,stroke-width:2px;
+                    classDef unityClass fill:#e6f5d0,stroke:#333,stroke-width:1px;
+                    classDef supabaseClass fill:#f9e7d2,stroke:#333,stroke-width:1px;
+                    classDef convaiClass fill:#f1d1f0,stroke:#333,stroke-width:1px;
+                    
+                    class Frontend frontendClass;
+                    class ReactUnity,UnityAPI unityClass;
+                    class Supabase supabaseClass;
+                    class Convai convaiClass;
+            </div>
+        </div>
+        
+        <div>
+            <a id="downloadLink" href="#" class="downloadLink" download="jasper9-components.svg">Download Diagram as SVG</a>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'neutral',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'cardinal'
+            }
+        });
+        
+        // Create downloadable SVG
+        setTimeout(() => {
+            const svgElement = document.querySelector("#simpleDiagram svg");
+            if (svgElement) {
+                const svgData = new XMLSerializer().serializeToString(svgElement);
+                const svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
+                const svgUrl = URL.createObjectURL(svgBlob);
+                document.getElementById('downloadLink').href = svgUrl;
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

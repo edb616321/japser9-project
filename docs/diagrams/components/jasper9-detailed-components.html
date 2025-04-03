@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jasper9 Detailed Components</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .diagram-container {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+            overflow: auto;
+        }
+        .downloadLink {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 16px;
+            background-color: #2ecc71;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .downloadLink:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Jasper9 Detailed Component Architecture</h1>
+        
+        <div class="diagram-container">
+            <div class="mermaid" id="detailedDiagram">
+                flowchart TD
+                    %% Main Components
+                    Frontend["React TS Frontend<br>Express Server"]
+                    ReactUnity["React Unity WebGL"]
+                    UnityAPI["Unity API"]
+                    Supabase["Supabase"]
+                    Convai["Convai AI Engine"]
+                    
+                    %% Frontend Subcomponents
+                    subgraph FrontendComponents["Frontend Components"]
+                        UI["UI Components<br>(Tailwind CSS)"]
+                        State["State Management<br>(Context/Redux)"]
+                        Router["Routing<br>(React Router)"]
+                        API["API Client<br>(Axios/Fetch)"]
+                        AuthClient["Auth Client"]
+                        GameIntegration["Game Integration<br>Components"]
+                    end
+                    
+                    %% React Unity WebGL Subcomponents
+                    subgraph UnityWebGLComponents["React Unity WebGL"]
+                        UnityLoader["Unity Loader"]
+                        UnityContext["Unity Context Provider"]
+                        CommunicationBridge["Unity-React<br>Communication Bridge"]
+                        EventSystem["Event System"]
+                    end
+                    
+                    %% Unity API Subcomponents
+                    subgraph UnityAPIComponents["Unity API"]
+                        GameLogic["Game Logic"]
+                        AssetManagement["Asset Management"]
+                        Physics["Physics Engine"]
+                        Rendering["Rendering"]
+                        Audio["Audio System"]
+                        InputSystem["Input System"]
+                        NetworkingComponent["Networking"]
+                    end
+                    
+                    %% Supabase Subcomponents
+                    subgraph SupabaseComponents["Supabase"]
+                        Auth["Authentication"]
+                        Database["PostgreSQL Database"]
+                        Storage["File Storage"]
+                        RealTime["Real-time Subscriptions"]
+                        EdgeFunctions["Edge Functions"]
+                        REST["REST API"]
+                    end
+                    
+                    %% Convai AI Subcomponents
+                    subgraph ConvaiComponents["Convai AI"]
+                        NLP["Natural Language<br>Processing"]
+                        Dialogue["Dialogue Management"]
+                        CharacterEngine["Character Engine"]
+                        VoiceAPI["Voice Synthesis/Recognition"]
+                        EmotionDetection["Emotion Detection"]
+                    end
+                    
+                    %% Connections between main components
+                    Frontend <---> ReactUnity
+                    Frontend <---> Supabase
+                    Frontend <---> Convai
+                    ReactUnity <---> UnityAPI
+                    UnityAPI <---> Convai
+                    
+                    %% Frontend internal connections
+                    Frontend --- FrontendComponents
+                    UI --- Router
+                    UI --- State
+                    State --- API
+                    API --- AuthClient
+                    UI --- GameIntegration
+                    GameIntegration --- ReactUnity
+                    API --- Supabase
+                    
+                    %% ReactUnity internal connections
+                    ReactUnity --- UnityWebGLComponents
+                    UnityLoader --- UnityContext
+                    UnityContext --- CommunicationBridge
+                    CommunicationBridge --- EventSystem
+                    GameIntegration --- CommunicationBridge
+                    
+                    %% Unity API internal connections
+                    UnityAPI --- UnityAPIComponents
+                    GameLogic --- Physics
+                    GameLogic --- Rendering
+                    GameLogic --- Audio
+                    GameLogic --- InputSystem
+                    GameLogic --- NetworkingComponent
+                    GameLogic --- AssetManagement
+                    NetworkingComponent --- Convai
+                    
+                    %% Supabase internal connections
+                    Supabase --- SupabaseComponents
+                    Database --- RealTime
+                    Auth --- Database
+                    EdgeFunctions --- Database
+                    EdgeFunctions --- Storage
+                    REST --- Database
+                    
+                    %% Convai internal connections
+                    Convai --- ConvaiComponents
+                    NLP --- Dialogue
+                    Dialogue --- CharacterEngine
+                    CharacterEngine --- VoiceAPI
+                    NLP --- EmotionDetection
+
+                    %% Data flow examples
+                    AuthClient -.-> Auth
+                    API -.-> Database
+                    API -.-> REST
+                    CommunicationBridge -.-> GameLogic
+                    NetworkingComponent -.-> NLP
+                    
+                    %% Styling
+                    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
+                    classDef frontendClass fill:#d4f1f9,stroke:#333,stroke-width:2px;
+                    classDef frontendComponentClass fill:#d4f1f9,stroke:#333,stroke-width:1px;
+                    classDef unityClass fill:#e6f5d0,stroke:#333,stroke-width:2px;
+                    classDef unityComponentClass fill:#e6f5d0,stroke:#333,stroke-width:1px;
+                    classDef supabaseClass fill:#f9e7d2,stroke:#333,stroke-width:2px;
+                    classDef supabaseComponentClass fill:#f9e7d2,stroke:#333,stroke-width:1px;
+                    classDef convaiClass fill:#f1d1f0,stroke:#333,stroke-width:2px;
+                    classDef convaiComponentClass fill:#f1d1f0,stroke:#333,stroke-width:1px;
+                    
+                    class Frontend frontendClass;
+                    class FrontendComponents,UI,State,Router,API,AuthClient,GameIntegration frontendComponentClass;
+                    class ReactUnity,UnityAPI unityClass;
+                    class UnityWebGLComponents,UnityLoader,UnityContext,CommunicationBridge,EventSystem,UnityAPIComponents,GameLogic,AssetManagement,Physics,Rendering,Audio,InputSystem,NetworkingComponent unityComponentClass;
+                    class Supabase supabaseClass;
+                    class SupabaseComponents,Auth,Database,Storage,RealTime,EdgeFunctions,REST supabaseComponentClass;
+                    class Convai convaiClass;
+                    class ConvaiComponents,NLP,Dialogue,CharacterEngine,VoiceAPI,EmotionDetection convaiComponentClass;
+            </div>
+        </div>
+        
+        <div>
+            <a id="downloadLink" href="#" class="downloadLink" download="jasper9-detailed-components.svg">Download Diagram as SVG</a>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'neutral',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'cardinal'
+            }
+        });
+        
+        // Create downloadable SVG
+        setTimeout(() => {
+            const svgElement = document.querySelector("#detailedDiagram svg");
+            if (svgElement) {
+                const svgData = new XMLSerializer().serializeToString(svgElement);
+                const svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
+                const svgUrl = URL.createObjectURL(svgBlob);
+                document.getElementById('downloadLink').href = svgUrl;
+            }
+        }, 2000);
+    </script>
+</body>
+</html>

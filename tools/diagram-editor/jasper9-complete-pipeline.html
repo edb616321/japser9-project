@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jasper9 Complete System Pipeline</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@9.3.0/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        h2 {
+            margin: 30px 0 20px 0;
+        }
+        .diagram-container {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+            overflow: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            text-align: left;
+            padding: 10px;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            vertical-align: top;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .component-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .unity {
+            background-color: #e6f5d0;
+        }
+        .webgl {
+            background-color: #d4e6f1;
+        }
+        .react {
+            background-color: #d4f1f9;
+        }
+        .service {
+            background-color: #f9e7d2;
+        }
+        .downloadLink {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 16px;
+            background-color: #2ecc71;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .downloadLink:hover {
+            background-color: #27ae60;
+        }
+        .button-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Jasper9 Complete System Pipeline</h1>
+        
+        <div class="diagram-container">
+            <div class="mermaid">
+                graph LR
+                    A["Unity Editor\n(Development)"] --> B["Unity Project"];
+                    B --> C["WebGL Export"];
+                    C --> D["WebGL Build Artifacts\n(.js, .wasm, .data)"];
+                    D --> E["React Unity WebGL\n(Integration Library)"];
+                    E --> F["Unity Component\nin React"];
+                    F <--> G["Communication Bridge"];
+                    F --> H["React Frontend App"];
+                    H <--> I["Supabase\n(DB, Auth, Storage)"];
+                    H <--> J["Convai AI Engine"];
+                    
+                    classDef unity fill:#e6f5d0,stroke:#333,stroke-width:1px;
+                    classDef webgl fill:#d4e6f1,stroke:#333,stroke-width:1px;
+                    classDef react fill:#d4f1f9,stroke:#333,stroke-width:1px;
+                    classDef service fill:#f9e7d2,stroke:#333,stroke-width:1px;
+                    
+                    class A,B unity;
+                    class C,D webgl;
+                    class E,F,G,H react;
+                    class I,J service;
+            </div>
+        </div>
+        
+        <h2>Component Details</h2>
+        
+        <table>
+            <tr>
+                <th width="15%">Component</th>
+                <th width="20%">Function</th>
+                <th width="25%">Description</th>
+                <th width="20%">System/App</th>
+                <th width="20%">Location</th>
+            </tr>
+            <tr class="unity">
+                <td class="component-name">Unity Editor</td>
+                <td>Game Development Environment</td>
+                <td>IDE for creating interactive 2D/3D content with visual editor, asset management, and C# scripting</td>
+                <td>Unity Editor (2022.x)</td>
+                <td>Run locally on developer machines</td>
+            </tr>
+            <tr class="unity">
+                <td class="component-name">Unity Project</td>
+                <td>Game Source Code & Assets</td>
+                <td>Collection of C# scripts, 3D models, textures, audio, animations, scenes and game logic</td>
+                <td>Unity Project Files</td>
+                <td>Source controlled via GitHub repository</td>
+            </tr>
+            <tr class="webgl">
+                <td class="component-name">WebGL Export</td>
+                <td>Build Process</td>
+                <td>Converts Unity project to web-compatible format, optimizes assets and compiles C# to WebAssembly</td>
+                <td>Unity Build Pipeline</td>
+                <td>Run on developer machines or CI/CD pipeline</td>
+            </tr>
+            <tr class="webgl">
+                <td class="component-name">WebGL Build Artifacts</td>
+                <td>Executable Web Content</td>
+                <td>Compiled game files that run in browser: JavaScript loaders, WebAssembly binaries and data files</td>
+                <td>Generated Files</td>
+                <td>Stored in React project's public directory or CDN</td>
+            </tr>
+            <tr class="react">
+                <td class="component-name">React Unity WebGL</td>
+                <td>Integration Library</td>
+                <td>Provides React components that load, mount and control Unity WebGL content within React applications</td>
+                <td>NPM Package (react-unity-webgl)</td>
+                <td>Installed via npm in React project</td>
+            </tr>
+            <tr class="react">
+                <td class="component-name">Unity Component in React</td>
+                <td>Unity WebGL Container</td>
+                <td>React component that renders Unity content and provides interface for communication between React and Unity</td>
+                <td>Custom React Component</td>
+                <td>Part of React frontend codebase</td>
+            </tr>
+            <tr class="react">
+                <td class="component-name">Communication Bridge</td>
+                <td>Cross-Framework Data Exchange</td>
+                <td>Passes data and events between React and Unity using SendMessage() (React→Unity) and JSLib methods (Unity→React)</td>
+                <td>JavaScript Interface</td>
+                <td>Part of React frontend and Unity WebGL build</td>
+            </tr>
+            <tr class="react">
+                <td class="component-name">React Frontend App</td>
+                <td>User Interface and Application Logic</td>
+                <td>Web application that hosts UI components, handles routing, state management, and API calls to backend services</td>
+                <td>React/TypeScript with Express server</td>
+                <td>Deployed on web host (Netlify/Vercel) or VM</td>
+            </tr>
+            <tr class="service">
+                <td class="component-name">Supabase</td>
+                <td>Backend Services</td>
+                <td>Provides database, authentication, storage, and real-time subscriptions for application data</td>
+                <td>Supabase Platform</td>
+                <td>Self-hosted on VM (10.0.0.232) with NGINX reverse proxy (10.0.0.228)</td>
+            </tr>
+            <tr class="service">
+                <td class="component-name">Convai AI Engine</td>
+                <td>AI Conversation System</td>
+                <td>Natural language processing, dialogue management, and character AI for interactive conversations</td>
+                <td>Convai API</td>
+                <td>SaaS - Cloud service by Convai</td>
+            </tr>
+        </table>
+
+        <h2>Pipeline Environments</h2>
+        
+        <table>
+            <tr>
+                <th width="15%">Environment</th>
+                <th width="25%">Purpose</th>
+                <th width="35%">Components</th>
+                <th width="25%">Access Method</th>
+            </tr>
+            <tr>
+                <td class="component-name">Development</td>
+                <td>Local development and testing</td>
+                <td>Unity Editor, React dev server, Local Supabase instance</td>
+                <td>http://localhost:3000</td>
+            </tr>
+            <tr>
+                <td class="component-name">Testing</td>
+                <td>Integration testing with all components</td>
+                <td>Built WebGL, Deployed React app, Staging Supabase DB</td>
+                <td>https://test.jasper9.brookmanfamily.com</td>
+            </tr>
+            <tr>
+                <td class="component-name">Production</td>
+                <td>Live user-facing application</td>
+                <td>Optimized WebGL, Production React app, Production Supabase</td>
+                <td>https://jasper9.brookmanfamily.com</td>
+            </tr>
+        </table>
+        
+        <h2>Integration Requirements</h2>
+        
+        <table>
+            <tr>
+                <th width="20%">Integration Point</th>
+                <th width="40%">Requirements</th>
+                <th width="40%">Implementation Notes</th>
+            </tr>
+            <tr>
+                <td class="component-name">Unity → WebGL</td>
+                <td>
+                    <ul>
+                        <li>WebGL module installed in Unity</li>
+                        <li>Compatible Unity version (2020.3+)</li>
+                        <li>WebGL templates configured</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li>Ensure Unity WebGL module is installed</li>
+                        <li>Configure memory settings for performance</li>
+                        <li>Use compression for smaller file sizes</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="component-name">WebGL → React</td>
+                <td>
+                    <ul>
+                        <li>react-unity-webgl package installed</li>
+                        <li>WebGL build files accessible to React</li>
+                        <li>CORS headers configured if served from different domain</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li>Place build in public folder or CDN</li>
+                        <li>Use Unity Context provider for configuration</li>
+                        <li>Add error handling for load failures</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="component-name">React → Supabase</td>
+                <td>
+                    <ul>
+                        <li>@supabase/supabase-js package</li>
+                        <li>Connection string and API key configuration</li>
+                        <li>Authentication flow implementation</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li>Use environment variables for credentials</li>
+                        <li>Implement role-based access control</li>
+                        <li>Consider using Edge Functions for sensitive operations</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="component-name">React → Convai</td>
+                <td>
+                    <ul>
+                        <li>Convai API client</li>
+                        <li>API key management</li>
+                        <li>Audio input/output handling</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li>Secure API key storage</li>
+                        <li>Implement audio recording permissions</li>
+                        <li>Consider websocket for real-time communication</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+
+        <div class="button-container">
+            <a id="downloadLink" href="#" class="downloadLink" download="jasper9-pipeline.svg">Download Pipeline Diagram as SVG</a>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'neutral'
+        });
+        
+        // Create downloadable SVG
+        setTimeout(() => {
+            const svgElement = document.querySelector(".mermaid svg");
+            if (svgElement) {
+                const svgData = new XMLSerializer().serializeToString(svgElement);
+                const svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
+                const svgUrl = URL.createObjectURL(svgBlob);
+                document.getElementById('downloadLink').href = svgUrl;
+            }
+        }, 2000);
+    </script>
+</body>
+</html>
