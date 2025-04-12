@@ -88,10 +88,10 @@ public class PlayerMovement : MonoBehaviour
             Vector3 moveVelocity = movement * currentSpeed;
             
             // Preserve existing Y velocity (gravity/jumping)
-            moveVelocity.y = rb.velocity.y;
+            moveVelocity.y = rb.linearVelocity.y;
             
             // Apply the velocity
-            rb.velocity = moveVelocity;
+            rb.linearVelocity = moveVelocity;
             
             // Make player face movement direction
             if (movement != Vector3.zero)
@@ -102,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             // No horizontal movement, preserve vertical velocity only
-            rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+            rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
         }
     }
     
